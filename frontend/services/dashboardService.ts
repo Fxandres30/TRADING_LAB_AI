@@ -1,4 +1,4 @@
-import { API } from "./api";
+import { API } from "../lib/api";
 
 export async function obtenerDashboard() {
 
@@ -6,7 +6,7 @@ export async function obtenerDashboard() {
 
     try {
 
-        const res = await fetch(`${API}/system/status`);
+        const res = await fetch(`${API}/api/system/status`);
 
         console.log(res);
 

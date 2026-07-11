@@ -1,8 +1,7 @@
-const API = "http://127.0.0.1:8000";
-
+import { API } from "../lib/api";
 export async function getStrategies() {
 
-    const res = await fetch(`${API}/strategies`);
+    const res = await fetch(`${API}/api/strategies`);
 
     if (!res.ok) {
 
