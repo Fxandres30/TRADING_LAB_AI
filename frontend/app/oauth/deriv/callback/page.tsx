@@ -1,69 +1,59 @@
 "use client";
 
-import { Suspense, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-function CallbackContent() {
-    const params = useSearchParams();
+export default function DerivCallbackPage() {
+
     const router = useRouter();
 
     useEffect(() => {
-        const code = params.get("code");
-        const state = params.get("state") ?? "";
 
-        if (!code) {
-            console.error("No llegó el código OAuth");
-            return;
-        }
+        console.log("======================================");
+        console.log("✅ CALLBACK FRONTEND");
+        console.log("======================================");
+        console.log("El usuario llegó al callback del Frontend.");
+        console.log("Con la Opción A este callback no procesa el OAuth.");
+        console.log("El Backend ya debe haber realizado:");
+        console.log("• Intercambio del código");
+        console.log("• Obtención del Access Token");
+        console.log("• Autorización del Broker");
+        console.log("• Selección de la cuenta");
+        console.log("======================================");
 
-        async function conectar() {
-            try {
-                const res = await fetch(
-                    `${process.env.NEXT_PUBLIC_API_URL}/api/oauth/deriv/callback`,
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            code,
-                            state,
-                        }),
-                    }
-                );
+        const timer = setTimeout(() => {
 
-                const data = await res.json();
+            router.replace("/dashboard");
 
-                console.log(data);
+        }, 1500);
 
-                router.replace("/dashboard");
-            } catch (e) {
-                console.error(e);
-            }
-        }
+        return () => clearTimeout(timer);
 
-        conectar();
-    }, [params, router]);
+    }, [router]);
 
     return (
+
         <div
             style={{
                 display: "flex",
+                flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
                 height: "100vh",
-                fontSize: 22,
+                gap: 20,
             }}
         >
-            🔄 Conectando con Deriv...
-        </div>
-    );
-}
 
-export default function Page() {
-    return (
-        <Suspense fallback={<div>Cargando...</div>}>
-            <CallbackContent />
-        </Suspense>
+            <h2>✅ Broker conectado</h2>
+
+            <p>
+
+                Redirigiendo al Dashboard...
+
+            </p>
+
+        </div>
+
     );
+
 }

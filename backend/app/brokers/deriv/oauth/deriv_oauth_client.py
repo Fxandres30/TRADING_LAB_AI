@@ -47,10 +47,14 @@ class DerivOAuthClient:
         print("AUTH URL      :", self.AUTH_URL)
         print("TOKEN URL     :", self.TOKEN_URL)
 
-        print("APP ID        :", settings.DERIV_APP_ID)
-        print("CLIENT ID     :", self.client_id)
-        print("REDIRECT URI  :", self.redirect_uri)
-        print("SCOPE         :", self.scope)
+        print("=" * 80)
+        print("CONFIGURACIÓN DERIV")
+        print("=" * 80)
+
+        print(f"APP_ID       : {settings.DERIV_APP_ID}")
+        print(f"CLIENT_ID    : {self.client_id}")
+        print(f"REDIRECT_URI : {self.redirect_uri}")
+        print(f"SCOPE        : {self.scope}")
 
         print("STATE         :", data["state"])
         print("VERIFIER      :", data["code_verifier"])
