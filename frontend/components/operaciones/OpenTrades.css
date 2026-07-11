@@ -1,0 +1,184 @@
+.tradeSection{
+
+    background:#111827;
+
+    border-radius:18px;
+
+    padding:18px;
+
+    border:1px solid rgba(255,255,255,.06);
+
+}
+
+.sectionHeader{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:16px;
+
+}
+
+.sectionHeader h2{
+
+    margin:0;
+
+    color:white;
+
+    font-size:20px;
+
+}
+
+.sectionHeader span{
+
+    color:#8b95a7;
+
+    font-size:13px;
+
+}
+
+.status{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:#8b95a7;
+
+    font-size:13px;
+
+}
+
+.liveDot{
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    background:#00d26a;
+
+    box-shadow:0 0 10px #00d26a;
+
+}
+
+.tableWrapper{
+
+    overflow:auto;
+
+}
+
+.tradesTable{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.tradesTable thead{
+
+    background:#182233;
+
+}
+
+.tradesTable th{
+
+    padding:11px;
+
+    text-align:left;
+
+    color:#8ea1bf;
+
+    font-size:11px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.08em;
+
+}
+
+.tradesTable td{
+
+    padding:11px;
+
+    border-top:1px solid rgba(255,255,255,.05);
+
+    color:white;
+
+    font-size:12px;
+
+}
+
+.tradesTable tbody tr{
+
+    transition:
+    .25s;
+
+}
+
+.tradesTable tbody tr:hover{
+
+    background:#172136;
+
+}
+
+.badge{
+
+    padding:4px 12px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+}
+
+.buy{
+
+    background:rgba(0,210,106,.15);
+
+    color:#00d26a;
+
+}
+
+.sell{
+
+    background:rgba(255,77,77,.15);
+
+    color:#ff5252;
+
+}
+
+.profit{
+
+    color:#00d26a;
+
+    font-weight:700;
+
+}
+
+.loss{
+
+    color:#ff4f4f;
+
+    font-weight:700;
+
+}
+
+.empty{
+
+    text-align:center;
+
+    color:#8b95a7;
+
+    padding:40px;
+
+}

@@ -1,0 +1,59 @@
+.opportunities-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:22px;
+
+    border-bottom:1px solid #eef2f7;
+
+}
+
+.opportunities-header h2{
+
+    margin:0;
+
+    font-size:22px;
+
+}
+
+.opportunities-header p{
+
+    margin-top:6px;
+
+    color:#64748b;
+
+}
+
+.total-signals{
+
+    width:80px;
+
+    height:80px;
+
+    border-radius:16px;
+
+    background:#2563eb;
+
+    color:#fff;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.total-signals span{
+
+    font-size:26px;
+
+    font-weight:700;
+
+}

@@ -1,0 +1,211 @@
+.sidebar{
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    bottom:0;
+
+    width:260px;
+
+    background:#ffffff;
+
+    border-right:1px solid #e5e7eb;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    padding:28px 22px;
+
+}
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    margin-bottom:40px;
+
+}
+
+.logoIcon{
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:16px;
+
+    background:linear-gradient(135deg,#2563EB,#06B6D4);
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:22px;
+
+    font-weight:700;
+
+}
+
+.logo h2{
+
+    font-size:19px;
+
+    color:#111827;
+
+}
+
+.logo span{
+
+    color:#64748B;
+
+    font-size:13px;
+
+}
+
+.menu{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+.menuItem{
+
+    height:50px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:0 16px;
+
+    border-radius:14px;
+
+    color:#64748b;
+
+    font-weight:500;
+
+    transition:.25s;
+
+    text-decoration:none;
+
+}
+
+.menuItem:hover{
+
+    background:#eef5ff;
+
+    color:#2563eb;
+
+}
+
+.menuItem.active{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+.active{
+
+    background:#2563EB;
+
+    color:white;
+
+}
+
+.active svg{
+
+    color:white;
+
+}
+
+.sidebarBottom{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+.statusCard{
+
+    background:#f8fafc;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:18px;
+
+    padding:18px;
+
+}
+
+.statusTitle{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:#22C55E;
+
+    font-weight:700;
+
+    margin-bottom:18px;
+
+}
+
+.statusRow{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:10px;
+
+}
+
+.statusRow small{
+
+    color:#64748B;
+
+}
+
+.statusRow strong{
+
+    color:#111827;
+
+}
+
+.version{
+
+    text-align:center;
+
+    color:#94A3B8;
+
+    font-size:12px;
+
+}

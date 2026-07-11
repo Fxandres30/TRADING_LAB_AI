@@ -1,0 +1,17 @@
+.strategyList{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+}
+
+.strategyList h2{
+
+    color:white;
+
+    margin-bottom:10px;
+
+}

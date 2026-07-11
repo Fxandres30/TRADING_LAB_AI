@@ -1,0 +1,102 @@
+.card{
+
+    background:#fff;
+    border:1px solid #eef2f7;
+    border-radius:16px;
+
+    padding:12px 14px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+
+    gap:6px;
+
+    min-height:82px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.04);
+
+    transition:.2s;
+
+}
+
+.card-content{
+
+    padding:12px 16px;
+
+    gap:8px;
+
+}
+
+.market-card{
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    background:#fff;
+
+    border:1px solid #e9edf5;
+
+}
+
+.info-row{
+
+    padding:6px 0;
+
+}
+
+.card:hover{
+
+    transform:translateY(-2px);
+    box-shadow:0 8px 18px rgba(0,0,0,.06);
+
+}
+
+.cardIcon{
+
+    width:32px;
+    height:32px;
+
+    border-radius:9px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+}
+
+.cardIcon svg{
+
+    width:16px;
+    height:16px;
+
+}
+
+.cardTitle{
+
+    font-size:11px;
+    font-weight:500;
+
+    color:#64748b;
+
+    line-height:1;
+
+}
+
+.cardValue{
+
+    font-size:15px;
+    font-weight:700;
+
+    color:#0f172a;
+
+    line-height:1.1;
+
+}
+
+.card-header{
+
+    padding:12px 16px;
+
+}

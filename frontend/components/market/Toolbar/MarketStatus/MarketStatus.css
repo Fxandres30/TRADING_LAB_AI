@@ -1,0 +1,9 @@
+.market-status{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:10px 16px;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+}

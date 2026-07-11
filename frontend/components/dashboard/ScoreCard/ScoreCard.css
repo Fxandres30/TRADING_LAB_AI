@@ -1,0 +1,215 @@
+.scoreCard{
+
+    background:#111827;
+
+    border-radius:22px;
+
+    padding:24px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:24px;
+
+    color:white;
+
+    box-shadow:0 12px 35px rgba(15,23,42,.18);
+
+}
+
+.title{
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    color:#94A3B8;
+
+    font-weight:700;
+
+}
+
+.scoreContent{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:30px;
+
+}
+
+.left{
+
+    flex:1;
+
+}
+
+.scoreTop{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:8px;
+
+    margin-bottom:18px;
+
+}
+
+.scoreTop h2{
+
+    font-size:52px;
+
+    line-height:1;
+
+    font-weight:700;
+
+}
+
+.scoreTop span{
+
+    color:#94A3B8;
+
+    font-size:22px;
+
+    margin-bottom:6px;
+
+}
+
+.progressBar{
+
+    height:10px;
+
+    border-radius:999px;
+
+    background:#243248;
+
+    overflow:hidden;
+
+}
+
+.progressFill{
+
+    width:82%;
+
+    height:100%;
+
+    border-radius:999px;
+
+    background:linear-gradient(90deg,#3B82F6,#8B5CF6);
+
+}
+
+.circle{
+
+    width:120px;
+
+    height:120px;
+
+    border-radius:50%;
+
+    background:
+
+        conic-gradient(
+
+            #4F7CFF 0deg,
+
+            #8B5CF6 295deg,
+
+            #263143 295deg,
+
+            #263143 360deg
+
+        );
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    position:relative;
+
+    flex-shrink:0;
+
+}
+
+.circle::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:10px;
+
+    border-radius:50%;
+
+    background:#111827;
+
+}
+
+.circle{
+
+    font-size:40px;
+
+    font-weight:700;
+
+}
+
+.circle{
+
+    color:white;
+
+}
+
+.circle>*{
+
+    position:relative;
+
+}
+
+.stats{
+
+    display:grid;
+
+    grid-template-columns:repeat(5,1fr);
+
+    gap:18px;
+
+    padding-top:10px;
+
+    border-top:1px solid rgba(255,255,255,.06);
+
+}
+
+.stat{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+
+}
+
+.stat small{
+
+    color:#94A3B8;
+
+    font-size:12px;
+
+}
+
+.stat strong{
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:white;
+
+}

@@ -1,0 +1,21 @@
+.metricsGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(6,1fr);
+
+    gap:15px;
+
+    margin-bottom:25px;
+
+}
+
+.metricsGrid div{
+
+    background:white;
+
+    border-radius:16px;
+
+    padding:20px;
+
+}

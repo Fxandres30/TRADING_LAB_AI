@@ -1,0 +1,141 @@
+.tradeSection{
+
+    background:#141d2f;
+
+    border:1px solid #24324a;
+
+    border-radius:18px;
+
+    padding:24px;
+
+}
+
+.sectionHeader{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+.sectionHeader h2{
+
+    font-size:22px;
+
+    color:white;
+
+}
+
+.sectionHeader span{
+
+    color:#8f9db7;
+
+    font-size:14px;
+
+}
+
+.empty{
+
+    color:#8f9db7;
+
+}
+
+.historyTable{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.historyTable thead{
+
+    background:#182337;
+
+}
+
+.historyTable th{
+
+    padding:14px;
+
+    text-align:left;
+
+    font-size:14px;
+
+    color:#8f9db7;
+
+}
+
+.historyTable td{
+
+    padding:14px;
+
+    border-top:1px solid #26354f;
+
+    color:white;
+
+}
+
+.historyTable tbody tr{
+
+    transition:.2s;
+
+}
+
+.historyTable tbody tr:hover{
+
+    background:#1b2940;
+
+}
+
+.buy{
+
+    background:#1d4d37;
+
+    color:#4ade80;
+
+    padding:4px 10px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+.sell{
+
+    background:#522525;
+
+    color:#f87171;
+
+    padding:4px 10px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+.profit{
+
+    color:#22c55e;
+
+    font-weight:bold;
+
+}
+
+.loss{
+
+    color:#ef4444;
+
+    font-weight:bold;
+
+}

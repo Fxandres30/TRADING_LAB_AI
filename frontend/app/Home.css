@@ -1,0 +1,67 @@
+/* ==========================================
+   LAYOUT
+========================================== */
+
+.layout{
+
+    display:flex;
+
+    min-height:100vh;
+
+    background:#F5F7FB;
+
+}
+
+/* ==========================================
+   CONTENIDO
+========================================== */
+
+.content{
+
+    flex:1;
+
+    margin-left:250px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    min-height:100vh;
+
+}
+
+/* ==========================================
+   DASHBOARD
+========================================== */
+
+.dashboardContainer{
+
+    flex:1;
+
+    padding:32px;
+
+    overflow-y:auto;
+
+}
+
+/* Scroll bonito */
+
+.dashboardContainer::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.dashboardContainer::-webkit-scrollbar-thumb{
+
+    background:#CBD5E1;
+
+    border-radius:20px;
+
+}
+
+.dashboardContainer::-webkit-scrollbar-track{
+
+    background:transparent;
+
+}

@@ -1,0 +1,41 @@
+.opportunity-stats{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:16px;
+
+    padding:20px;
+
+}
+
+.stat-card{
+
+    background:#f8fafc;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:14px;
+
+    padding:18px;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.stat-card span{
+
+    color:#64748b;
+
+}
+
+.stat-card strong{
+
+    margin-top:10px;
+
+    font-size:28px;
+
+}

@@ -1,0 +1,203 @@
+.accountOverlay{
+
+    position:fixed;
+    inset:0;
+
+    background:rgba(15,23,42,.55);
+
+    backdrop-filter:blur(6px);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    z-index:99999;
+
+}
+
+.accountModal{
+
+    width:620px;
+
+    background:white;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 25px 70px rgba(0,0,0,.22);
+
+    animation:popup .25s ease;
+
+}
+
+@keyframes popup{
+
+    from{
+
+        opacity:0;
+        transform:translateY(20px) scale(.96);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:none;
+
+    }
+
+}
+
+.modalHeader{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+
+    padding:28px;
+
+    border-bottom:1px solid #eef2f7;
+
+}
+
+.modalHeader h2{
+
+    margin:0;
+
+    font-size:28px;
+
+    color:#0f172a;
+
+}
+
+.modalHeader p{
+
+    margin-top:8px;
+
+    color:#64748b;
+
+    font-size:14px;
+
+}
+
+.close{
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    background:#f8fafc;
+
+    font-size:18px;
+
+    transition:.25s;
+
+}
+
+.close:hover{
+
+    background:#ef4444;
+
+    color:white;
+
+}
+
+.brokerList{
+
+    padding:24px;
+
+}
+
+.brokerCard{
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:22px;
+
+    padding:22px;
+
+    border-radius:18px;
+
+    border:2px solid #e5e7eb;
+
+    background:white;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.brokerCard:hover{
+
+    transform:translateY(-2px);
+
+    border-color:#2563eb;
+
+    box-shadow:0 10px 35px rgba(37,99,235,.15);
+
+}
+
+.brokerCard img{
+
+    width:62px;
+
+    height:62px;
+
+    object-fit:contain;
+
+}
+
+.brokerInfo{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.brokerInfo strong{
+
+    font-size:22px;
+
+    color:#111827;
+
+}
+
+.brokerInfo span{
+
+    margin-top:6px;
+
+    color:#64748b;
+
+    font-size:14px;
+
+}
+
+.brokerAction{
+
+    padding:12px 20px;
+
+    border-radius:12px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-weight:700;
+
+}

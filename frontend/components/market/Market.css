@@ -1,0 +1,45 @@
+.market{
+
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+
+    width:100%;
+    height:100%;
+
+    padding:24px;
+
+}
+
+.market-layout{
+
+    display:grid;
+
+    grid-template-columns:1fr 300px;
+
+    gap:20px;
+
+    align-items:start;
+
+}
+
+.market-main{
+
+    display:flex;
+    flex-direction:column;
+
+    gap:24px;
+
+    min-width:0;
+
+}
+
+@media (max-width:1200px){
+
+    .market-layout{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

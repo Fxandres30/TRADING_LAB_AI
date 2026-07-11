@@ -1,0 +1,51 @@
+.botControls{
+
+    background:#172033;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    border:1px solid #243248;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+.botControls button{
+
+    height:55px;
+
+    border:none;
+
+    border-radius:12px;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+}
+
+.botControls button:nth-child(1){
+
+    background:#16a34a;
+
+}
+
+.botControls button:nth-child(2){
+
+    background:#f59e0b;
+
+}
+
+.botControls button:nth-child(3){
+
+    background:#dc2626;
+
+}

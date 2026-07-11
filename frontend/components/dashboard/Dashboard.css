@@ -1,0 +1,143 @@
+.dashboard{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:24px;
+
+    width:100%;
+
+}
+
+.dashboardTop{
+
+    display:grid;
+
+    grid-template-columns:
+
+        300px
+        1fr
+        260px;
+
+    gap:20px;
+
+    align-items:stretch;
+
+}
+
+.dashboardHero{
+
+    display:grid;
+
+    grid-template-columns:340px 1fr;
+
+    gap:24px;
+
+}
+
+.dashboardMetrics{
+
+    width:100%;
+
+}
+
+.dashboardCharts{
+
+    display:grid;
+
+    grid-template-columns:1.1fr 1fr;
+
+    gap:24px;
+
+}
+
+@media(max-width:1400px){
+
+    .dashboardHero{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .dashboardCharts{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+.blue{
+
+    background:#e0ecff;
+
+    color:#2563eb;
+
+}
+
+.purple{
+
+    background:#efe4ff;
+
+    color:#7c3aed;
+
+}
+
+.orange{
+
+    background:#fff3df;
+
+    color:#ea580c;
+
+}
+
+.green{
+
+    background:#dcfce7;
+
+    color:#16a34a;
+
+}
+
+.cyan{
+
+    background:#cffafe;
+
+    color:#0891b2;
+
+}
+
+.indigo{
+
+    background:#e0e7ff;
+
+    color:#4f46e5;
+
+}
+
+.red{
+
+    background:#ffe4e6;
+
+    color:#dc2626;
+
+}
+
+.yellow{
+
+    background:#fef3c7;
+
+    color:#ca8a04;
+
+}
+
+@media(max-width:900px){
+
+    .dashboard{
+
+        gap:18px;
+
+    }
+
+}

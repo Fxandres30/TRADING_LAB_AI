@@ -1,0 +1,33 @@
+.operationsDashboard{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    width:100%;
+
+}
+
+.bottomGrid{
+
+    display:grid;
+
+    grid-template-columns:320px 1fr;
+
+    gap:18px;
+
+    align-items:start;
+
+}
+
+@media(max-width:1200px){
+
+    .bottomGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
