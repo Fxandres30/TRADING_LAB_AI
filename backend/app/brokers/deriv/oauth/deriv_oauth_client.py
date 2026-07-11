@@ -1,8 +1,11 @@
 from urllib.parse import urlencode
+
 import requests
 
 from app.config.settings import settings
+
 from .deriv_oauth_pkce import DerivOAuthPKCE
+from .deriv_oauth_storage import storage
 
 
 class DerivOAuthClient:
@@ -16,19 +19,28 @@ class DerivOAuthClient:
         self.redirect_uri = settings.DERIV_REDIRECT_URI
         self.scope = "trade account_manage"
 
-        self.pkce = DerivOAuthPKCE()
-
     # =====================================================
     # LOGIN URL
     # =====================================================
 
     def authorization_url(self):
 
-        self.pkce.generate()
+        pkce = DerivOAuthPKCE().generate()
 
-        data = self.pkce.data()
+        data = pkce.data()
 
-        print("\n" + "=" * 80)
+        storage.save(
+
+            state=data["state"],
+
+            code_verifier=data["code_verifier"],
+
+            code_challenge=data["code_challenge"],
+
+        )
+
+        print()
+        print("=" * 80)
         print("🚀 DERIV OAUTH")
         print("=" * 80)
 
@@ -41,22 +53,29 @@ class DerivOAuthClient:
         print("SCOPE         :", self.scope)
 
         print("STATE         :", data["state"])
-        print("VERIFIER      :", self.pkce.code_verifier)
+        print("VERIFIER      :", data["code_verifier"])
         print("CHALLENGE     :", data["code_challenge"])
 
         params = {
 
             "response_type": "code",
+
             "client_id": self.client_id,
+
             "redirect_uri": self.redirect_uri,
+
             "scope": self.scope,
+
             "state": data["state"],
+
             "code_challenge": data["code_challenge"],
+
             "code_challenge_method": "S256",
 
         }
 
-        print("\nPARAMETROS")
+        print()
+        print("PARAMETROS")
         print("-" * 80)
 
         for k, v in params.items():
@@ -64,9 +83,14 @@ class DerivOAuthClient:
 
         url = f"{self.AUTH_URL}?{urlencode(params)}"
 
-        print("\nURL FINAL")
+        print()
+        print("URL FINAL")
         print("-" * 80)
         print(url)
+
+        print()
+        print("STORAGE")
+        print(storage.status())
 
         print("=" * 80)
 
@@ -76,63 +100,77 @@ class DerivOAuthClient:
     # TOKEN
     # =====================================================
 
-    def exchange_code(self, code: str):
+    def exchange_code(
 
-        print("\n" + "=" * 80)
-        print("🔄 INTERCAMBIO TOKEN")
-        print("=" * 80)
+        self,
+
+        code: str,
+
+        state: str,
+
+    ):
+
+        session = storage.get(state)
+
+        if session is None:
+
+            raise Exception(
+                f"No existe una sesión PKCE para el state: {state}"
+            )
 
         payload = {
 
             "grant_type": "authorization_code",
+
             "client_id": self.client_id,
+
             "code": code,
+
             "redirect_uri": self.redirect_uri,
-            "code_verifier": self.pkce.code_verifier,
+
+            "code_verifier": session["code_verifier"],
 
         }
 
-        print("\nPAYLOAD")
+        print()
+        print("=" * 80)
+        print("🔄 INTERCAMBIO TOKEN")
+        print("=" * 80)
+
+        print("STATE:", state)
+
+        print()
+        print("PAYLOAD")
         print("-" * 80)
 
         for k, v in payload.items():
             print(f"{k:20}: {v}")
 
+        response = requests.post(
+
+            self.TOKEN_URL,
+
+            data=payload,
+
+            timeout=30,
+
+        )
+
+        print()
+        print("RESPUESTA")
+        print("-" * 80)
+
+        print("STATUS:", response.status_code)
+
         try:
+            print(response.json())
+        except Exception:
+            print(response.text)
 
-            response = requests.post(
+        print("=" * 80)
 
-                self.TOKEN_URL,
-                data=payload,
-                timeout=30,
+        response.raise_for_status()
 
-            )
+        storage.remove(state)
 
-            print("\nRESPUESTA")
-            print("-" * 80)
-            print("STATUS :", response.status_code)
-            print("HEADERS:")
-            print(response.headers)
-            print()
-
-            try:
-                print(response.json())
-            except Exception:
-                print(response.text)
-
-            print("=" * 80)
-
-            response.raise_for_status()
-
-            return response.json()
-
-        except Exception as e:
-
-            print("\n" + "=" * 80)
-            print("❌ ERROR TOKEN")
-            print("=" * 80)
-            print(type(e).__name__)
-            print(e)
-            print("=" * 80)
-
-            raise
+        return response.json()

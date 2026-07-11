@@ -25,9 +25,23 @@ class DerivOAuthManager:
     # CALLBACK
     # =====================================================
 
-    def authorize(self, code: str):
+    def authorize(
 
-        data = self.client.exchange_code(code)
+        self,
+
+        code: str,
+
+        state: str,
+
+    ):
+
+        data = self.client.exchange_code(
+
+            code=code,
+
+            state=state,
+
+        )
 
         token = DerivOAuthToken(
 
@@ -50,6 +64,7 @@ class DerivOAuthManager:
         )
 
         self.session.connected = True
+
         self.session.token = token
 
         return token
@@ -61,6 +76,7 @@ class DerivOAuthManager:
     def token(self):
 
         if self.session.token:
+
             return self.session.token.access_token
 
         return None
@@ -112,4 +128,3 @@ class DerivOAuthManager:
     def logout(self):
 
         self.session = DerivOAuthSession()
-        

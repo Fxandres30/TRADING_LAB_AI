@@ -71,10 +71,12 @@ def callback(
     print(code)
 
     print()
+
     print("STATE:")
     print(state)
 
     print()
+
     print("QUERY PARAMS:")
     print(dict(request.query_params))
 
@@ -83,7 +85,13 @@ def callback(
         print()
         print("🔄 AUTORIZANDO...")
 
-        token = oauth.authorize(code)
+        token = oauth.authorize(
+
+            code=code,
+
+            state=state,
+
+        )
 
         print()
         print("✅ TOKEN RECIBIDO")
@@ -110,7 +118,6 @@ def callback(
         print()
 
         print("STATUS OAUTH")
-
         print(oauth.status())
 
         print("=" * 80)
