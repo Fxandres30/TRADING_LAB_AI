@@ -4,55 +4,35 @@ from app.brokers.deriv.deriv_candles import DerivCandles
 class DerivMarket:
 
     def __init__(self, client):
-
         self.client = client
-
-        self.candles_service = DerivCandles(client)
+        self.candles = DerivCandles(client)
 
     # ==========================================
-    # HISTORIAL
+    # HISTORIAL DE VELAS
     # ==========================================
 
-    def candles(
-
+    def history(
         self,
-
         symbol: str,
-
         timeframe: int,
-
         count: int = 500,
-
     ):
-
-        return self.candles_service.history(
-
+        return self.candles.history(
             symbol=symbol,
-
             timeframe=timeframe,
-
             count=count,
-
         )
 
     # ==========================================
     # ÚLTIMA VELA
     # ==========================================
 
-    def last_candle(
-
+    def last(
         self,
-
         symbol: str,
-
         timeframe: int,
-
     ):
-
-        return self.candles_service.last(
-
+        return self.candles.last(
             symbol=symbol,
-
             timeframe=timeframe,
-
         )

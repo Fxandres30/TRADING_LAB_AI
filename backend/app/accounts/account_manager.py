@@ -4,23 +4,21 @@ from .account_model import AccountModel
 class AccountManager:
 
     def __init__(self):
-
-        self.accounts = {}
+        self.accounts: dict[str, AccountModel] = {}
 
     # =====================================================
-    # AGREGAR
+    # AGREGAR / ACTUALIZAR
     # =====================================================
 
     def add(self, account: AccountModel):
-
         self.accounts[account.id] = account
+        return account
 
     # =====================================================
     # OBTENER
     # =====================================================
 
-    def get(self, account_id):
-
+    def get(self, account_id: str):
         return self.accounts.get(account_id)
 
     # =====================================================
@@ -28,11 +26,17 @@ class AccountManager:
     # =====================================================
 
     def all(self):
-
         return list(self.accounts.values())
 
     # =====================================================
-    # SELECCIONADA
+    # EXISTE
+    # =====================================================
+
+    def exists(self, account_id: str):
+        return account_id in self.accounts
+
+    # =====================================================
+    # CUENTA SELECCIONADA
     # =====================================================
 
     def selected(self):
@@ -40,31 +44,56 @@ class AccountManager:
         for account in self.accounts.values():
 
             if account.selected:
-
                 return account
 
         return None
 
     # =====================================================
+    # HAY CUENTA SELECCIONADA
+    # =====================================================
+
+    def has_selected(self):
+        return self.selected() is not None
+
+    # =====================================================
     # SELECCIONAR
     # =====================================================
 
-    def select(self, account_id):
+    def select(self, account_id: str):
 
         for account in self.accounts.values():
-
             account.selected = False
 
-        if account_id in self.accounts:
+        account = self.get(account_id)
 
-            self.accounts[account_id].selected = True
+        if account is None:
+            raise Exception(f"La cuenta '{account_id}' no existe.")
+
+        account.selected = True
+
+        return account
+
+    # =====================================================
+    # DESELECCIONAR TODAS
+    # =====================================================
+
+    def clear_selection(self):
+
+        for account in self.accounts.values():
+            account.selected = False
 
     # =====================================================
     # ELIMINAR
     # =====================================================
 
-    def remove(self, account_id):
+    def remove(self, account_id: str):
 
         if account_id in self.accounts:
-
             del self.accounts[account_id]
+
+    # =====================================================
+    # LIMPIAR
+    # =====================================================
+
+    def clear(self):
+        self.accounts.clear()

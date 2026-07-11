@@ -1,43 +1,37 @@
 import { API } from "@/lib/api";
 
 export interface Candle {
-
-    time: number;
-
-    open: number;
-
-    high: number;
-
-    low: number;
-
-    close: number;
-
+  time: number;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
 }
 
 export class CandleService {
+  static async getHistory(
+    symbol: string,
+    timeframe: string
+  ): Promise<Candle[]> {
 
-    static async getHistory(
+    const url =
+      `${API}/api/market/history?symbol=${encodeURIComponent(symbol)}&timeframe=${encodeURIComponent(timeframe)}`;
 
-        symbol: string,
+    console.log("GET:", url);
 
-        timeframe: string
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-    ): Promise<Candle[]> {
-
-        const response = await fetch(
-
-            `${API}/api/market/history?symbol=${symbol}&timeframe=${timeframe}`
-
-        );
-
-        if (!response.ok) {
-
-            throw new Error(`Error ${response.status}`);
-
-        }
-
-        return await response.json();
-
+    if (!response.ok) {
+      throw new Error(
+        `Error ${response.status}: ${await response.text()}`
+      );
     }
 
+    return response.json();
+  }
 }

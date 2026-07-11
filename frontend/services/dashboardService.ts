@@ -1,25 +1,16 @@
 import { API } from "../lib/api";
 
 export async function obtenerDashboard() {
+  const res = await fetch(`${API}/api/system/status`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
-    console.log("API:", API);
+  if (!res.ok) {
+    throw new Error(await res.text());
+  }
 
-    try {
-
-        const res = await fetch(`${API}/api/system/status`);
-
-        console.log(res);
-
-        if (!res.ok) {
-            throw new Error(await res.text());
-        }
-
-        return await res.json();
-
-    } catch (e) {
-
-        console.error("ERROR FETCH", e);
-
-        throw e;
-    }
+  return await res.json();
 }

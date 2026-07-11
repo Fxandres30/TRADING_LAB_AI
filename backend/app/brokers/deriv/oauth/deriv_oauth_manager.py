@@ -8,9 +8,7 @@ from .deriv_oauth_models import (
 class DerivOAuthManager:
 
     def __init__(self):
-
         self.client = DerivOAuthClient()
-
         self.session = DerivOAuthSession()
 
     # =====================================================
@@ -18,7 +16,6 @@ class DerivOAuthManager:
     # =====================================================
 
     def login_url(self):
-
         return self.client.authorization_url()
 
     # =====================================================
@@ -26,45 +23,24 @@ class DerivOAuthManager:
     # =====================================================
 
     def authorize(
-
         self,
-
         code: str,
-
         state: str,
-
-    ):
+    ) -> DerivOAuthToken:
 
         data = self.client.exchange_code(
-
             code=code,
-
             state=state,
-
         )
 
         token = DerivOAuthToken(
-
             access_token=data["access_token"],
-
-            token_type=data.get(
-                "token_type",
-                "Bearer",
-            ),
-
-            expires_in=data.get(
-                "expires_in",
-                0,
-            ),
-
-            refresh_token=data.get(
-                "refresh_token",
-            ),
-
+            token_type=data.get("token_type", "Bearer"),
+            expires_in=data.get("expires_in", 0),
+            refresh_token=data.get("refresh_token"),
         )
 
         self.session.connected = True
-
         self.session.token = token
 
         return token
@@ -73,52 +49,19 @@ class DerivOAuthManager:
     # ACCESS TOKEN
     # =====================================================
 
-    def token(self):
-
-        if self.session.token:
-
-            return self.session.token.access_token
-
-        return None
-
-    # =====================================================
-    # CONECTADO
-    # =====================================================
-
-    def connected(self):
-
-        return self.session.connected
-
-    # =====================================================
-    # TIENE TOKEN
-    # =====================================================
-
-    def has_token(self):
-
-        return self.token() is not None
-
-    # =====================================================
-    # CLIENT
-    # =====================================================
-
-    def client_name(self):
-
-        return "OAuth"
+    @property
+    def access_token(self):
+        return None if self.session.token is None else self.session.token.access_token
 
     # =====================================================
     # STATUS
     # =====================================================
 
     def status(self):
-
         return {
-
-            "connected": self.connected(),
-
-            "has_token": self.has_token(),
-
-            "client": self.client_name(),
-
+            "connected": self.session.connected,
+            "has_token": self.session.token is not None,
+            "client": "OAuth",
         }
 
     # =====================================================
@@ -126,5 +69,4 @@ class DerivOAuthManager:
     # =====================================================
 
     def logout(self):
-
         self.session = DerivOAuthSession()
