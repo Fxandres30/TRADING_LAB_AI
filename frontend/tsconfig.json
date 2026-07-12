@@ -19,7 +19,7 @@
     "jsx": "react-jsx",
 
     "incremental": true,
-
+ 
     "baseUrl": ".",
 
     "paths": {
@@ -45,4 +45,4 @@
   "exclude": [
     "node_modules"
   ]
-}
+} 

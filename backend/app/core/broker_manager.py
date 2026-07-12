@@ -1,7 +1,7 @@
 from app.core.service import Service
 
-from app.brokers.mt5.mt5_broker import MT5Broker
-from app.brokers.deriv.deriv_broker import DerivBroker
+from app.core.service import Service
+from app.brokers.broker_discovery import BrokerDiscovery
 from app.brokers.broker_discovery import BrokerDiscovery
 
 
@@ -39,9 +39,28 @@ class BrokerManager(Service):
 
     def load(self):
 
-        self.register(MT5Broker(self.accounts))
+        # MT5
+        try:
 
-        self.register(DerivBroker(self.accounts))
+            from app.brokers.mt5.mt5_broker import MT5Broker
+
+            self.register(MT5Broker(self.accounts))
+
+        except Exception as e:
+
+            print(f"⚠ MT5 no disponible: {e}")
+
+        # Deriv
+        try:
+
+            from app.brokers.deriv.deriv_broker import DerivBroker
+
+            self.register(DerivBroker(self.accounts))
+
+        except Exception as e:
+
+            print(f"⚠ Deriv no disponible: {e}")
+
 
     # =====================================================
     # INITIALIZE
