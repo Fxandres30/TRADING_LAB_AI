@@ -15,142 +15,254 @@ import {
     ShieldCheck,
     DollarSign,
     UserCircle2,
-    Settings
+    Settings,
+    Wallet,
+    Layers3,
 
 } from "lucide-react";
 
-export default function Topbar(){
+export default function Topbar() {
 
-    const [openAccount,setOpenAccount]=useState(false);
+    const [openAccount, setOpenAccount] = useState(false);
 
-    return(
+    // =====================================================
+    // TEMPORAL
+    // Después vendrá desde el backend
+    // =====================================================
 
-    
+    const dashboard = {
 
-        <header className="topbar">
+        broker: "MetaTrader 5",
 
-            {/* IZQUIERDA */}
+        account: "Deriv-Demo",
 
-            <div className="topbarLeft">
+        accounts: 3,
 
-                <div>
+        balance: 110954.22,
 
-                    <h1>
+        equity: 110954.22,
 
-                        Trading Lab AI
+        risk: "1%",
 
-                    </h1>
+        bot: true,
 
-                    <span>
+        user: "Andrés Felipe"
 
-                        Quantitative Trading Platform
+    };
 
-                    </span>
+    return (
 
-                </div>
+        <>
 
-            </div>
+            <header className="topbar">
 
-            {/* CENTRO */}
+                {/* ====================================== */}
+                {/* CENTRO */}
+                {/* ====================================== */}
 
-            <div className="topbarCenter">
+                <div className="topbarCenter">
 
-    <div className="status online">
-        <Activity size={15}/>
-        BOT ONLINE
-    </div>
+                    <div className={`status ${dashboard.bot ? "online" : ""}`}>
 
-    <button className="selector">
-        <Wifi size={15}/>
-        Broker
-        <strong>Deriv</strong>
-    </button>
+                        <Activity size={15} />
 
-    <button className="selector">
-        <UserCircle2 size={15}/>
-        Cuenta
-        <strong>Demo USD</strong>
-    </button>
+                        {dashboard.bot ? "BOT ONLINE" : "BOT OFFLINE"}
 
-    <button
+                    </div>
 
-    className="selector add"
+                    <div className="selector">
 
-    onClick={()=>setOpenAccount(true)}
+                        <Wifi size={15} />
 
->
+                        <span>
 
-    + Agregar Cuenta
+                            Broker
 
-</button>
-
-    <div className="status">
-        <DollarSign size={15}/>
-        Balance $9,970
-    </div>
-
-    <div className="status">
-        <ShieldCheck size={15}/>
-        Riesgo 1%
-    </div>
-
-</div>
-
-            {/* DERECHA */}
-
-            <div className="topbarRight">
-
-                <button>
-
-                    <Bell size={18}/>
-
-                </button>
-
-                <button>
-
-                    <Clock3 size={18}/>
-
-                </button>
-
-                <button>
-
-                    <Settings size={18}/>
-
-                </button>
-
-                <div className="profile">
-
-                    <UserCircle2 size={34}/>
-
-                    <div>
+                        </span>
 
                         <strong>
 
-                            Andrés Felipe
+                            {dashboard.broker}
 
                         </strong>
 
-                        <small>
+                    </div>
 
-                            Quant Trader
+                    <div className="selector">
 
-                        </small>
+                        <UserCircle2 size={15} />
+
+                        <span>
+
+                            Cuenta
+
+                        </span>
+
+                        <strong>
+
+                            {dashboard.account}
+
+                        </strong>
+
+                    </div>
+
+                    <div className="selector">
+
+                        <Layers3 size={15} />
+
+                        <span>
+
+                            Cuentas
+
+                        </span>
+
+                        <strong>
+
+                            {dashboard.accounts}
+
+                        </strong>
+
+                    </div>
+
+                    <button
+
+                        className="selector add"
+
+                        onClick={() => setOpenAccount(true)}
+
+                    >
+
+                        + Agregar Cuenta
+
+                    </button>
+
+                    <div className="status">
+
+                        <Wallet size={15} />
+
+                        <span>
+
+                            Balance
+
+                        </span>
+
+                        <strong>
+
+                            {dashboard.balance.toLocaleString("en-US", {
+
+                                minimumFractionDigits: 2,
+
+                                maximumFractionDigits: 2,
+
+                            })} USD
+
+                        </strong>
+
+                    </div>
+
+                    <div className="status">
+
+                        <DollarSign size={15} />
+
+                        <span>
+
+                            Equity
+
+                        </span>
+
+                        <strong>
+
+                            {dashboard.equity.toLocaleString("en-US", {
+
+                                minimumFractionDigits: 2,
+
+                                maximumFractionDigits: 2,
+
+                            })} USD
+
+                        </strong>
+
+                    </div>
+
+                    <div className="status">
+
+                        <ShieldCheck size={15} />
+
+                        <span>
+
+                            Riesgo
+
+                        </span>
+
+                        <strong>
+
+                            {dashboard.risk}
+
+                        </strong>
 
                     </div>
 
                 </div>
 
-            </div>
+                {/* ====================================== */}
+                {/* DERECHA */}
+                {/* ====================================== */}
+
+                <div className="topbarRight">
+
+                    <button>
+
+                        <Bell size={18} />
+
+                    </button>
+
+                    <button>
+
+                        <Clock3 size={18} />
+
+                    </button>
+
+                    <button>
+
+                        <Settings size={18} />
+
+                    </button>
+
+                    <div className="profile">
+
+                        <UserCircle2 size={34} />
+
+                        <div>
+
+                            <strong>
+
+                                {dashboard.user}
+
+                            </strong>
+
+                            <small>
+
+                                Quant Trader
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
 
             <AccountModal
 
-    open={openAccount}
+                open={openAccount}
 
-    onClose={()=>setOpenAccount(false)}
+                onClose={() => setOpenAccount(false)}
 
-/>
+            />
 
-        </header>
+        </>
 
     );
 

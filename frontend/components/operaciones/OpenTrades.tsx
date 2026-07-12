@@ -1,19 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import "./OpenTrades.css";
 
-interface Trade {
-    ticket: number;
-    symbol: string;
-    type: string;
-    volume: number;
-    price_open: number;
-    price_current: number;
-    profit: number;
-    sl: number;
-    tp: number;
-}
+import { getOpenTrades, Trade } from "@/lib/services/operations";
 
 export default function OpenTrades() {
 
@@ -25,20 +16,14 @@ export default function OpenTrades() {
 
         try {
 
-            const res = await fetch(
-                "http://127.0.0.1:8000/operations/open",
-                { cache: "no-store" }
-            );
-
-            if (!res.ok)
-                throw new Error();
-
-            const data = await res.json();
+            const data = await getOpenTrades();
 
             setTrades(data);
             setError("");
 
-        } catch {
+        } catch (err) {
+
+            console.error(err);
 
             setTrades([]);
             setError("No fue posible conectar con el servidor.");

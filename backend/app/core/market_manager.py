@@ -4,11 +4,20 @@ from app.market.analysis import MarketAnalysis
 
 class MarketManager(Service):
 
-    def __init__(self, event_bus, broker_manager):
+    def __init__(
+
+        self,
+
+        event_bus,
+
+        broker_manager,
+
+    ):
 
         super().__init__()
 
         self.event_bus = event_bus
+
         self.brokers = broker_manager
 
     # =====================================================
@@ -16,23 +25,29 @@ class MarketManager(Service):
     # =====================================================
 
     def get_candles(
+
         self,
+
         broker=None,
-        symbol="frxEURUSD",
-        timeframe=60,
+
+        symbol="EURUSD",
+
+        timeframe="M15",
+
         count=500,
+
     ):
 
-        print("=" * 60)
-        print(type(self.brokers))
-        print(dir(self.brokers))
-        print("=" * 60)
-
         return self.brokers.get_candles(
+
             broker=broker,
+
             symbol=symbol,
+
             timeframe=timeframe,
+
             count=count,
+
         )
 
     # =====================================================
@@ -40,30 +55,65 @@ class MarketManager(Service):
     # =====================================================
 
     def get_tick(
+
         self,
+
         broker=None,
-        symbol="frxEURUSD",
+
+        symbol="EURUSD",
+
     ):
 
-        instance = self.brokers.connect(broker)
+        return self.brokers.get_tick(
 
-        return instance.market.tick(symbol)
+            broker=broker,
+
+            symbol=symbol,
+
+        )
+
+    # =====================================================
+    # SYMBOLS
+    # =====================================================
+
+    def get_symbols(
+
+        self,
+
+        broker=None,
+
+    ):
+
+        return self.brokers.get_symbols(
+
+            broker=broker,
+
+        )
 
     # =====================================================
     # SNAPSHOT
     # =====================================================
 
     def snapshot(
+
         self,
+
         broker=None,
-        symbol="frxEURUSD",
+
+        symbol="EURUSD",
+
     ):
 
         return {
+
             "tick": self.get_tick(
+
                 broker=broker,
+
                 symbol=symbol,
+
             )
+
         }
 
     # =====================================================
@@ -71,27 +121,45 @@ class MarketManager(Service):
     # =====================================================
 
     def analyze(
+
         self,
+
         broker=None,
-        symbol="frxEURUSD",
-        timeframe=60,
+
+        symbol="EURUSD",
+
+        timeframe="M15",
+
         count=500,
+
     ):
 
         candles = self.get_candles(
+
             broker=broker,
+
             symbol=symbol,
+
             timeframe=timeframe,
+
             count=count,
+
         )
 
-        if not candles:
-            raise Exception("No se recibieron velas")
+        if len(candles) == 0:
+
+            raise Exception("No se recibieron velas.")
 
         return MarketAnalysis(
+
             symbol=symbol,
+
             timeframe=str(timeframe),
+
             candles=candles,
+
             last_price=candles[-1].close,
+
             last_candle=candles[-1],
+
         )

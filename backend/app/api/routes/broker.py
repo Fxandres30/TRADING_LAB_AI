@@ -1,26 +1,12 @@
-from fastapi import APIRouter
-
-from app.services.broker_service import broker_service
+from fastapi import APIRouter, Request
 
 router = APIRouter(
-    prefix="/broker",
+    prefix="/brokers",
     tags=["Broker"]
 )
 
 
-@router.get("/status")
-def status():
+@router.get("/discover")
+def discover(request: Request):
 
-    return broker_service.status()
-
-
-@router.get("/connect")
-def connect():
-
-    return broker_service.connect()
-
-
-@router.get("/disconnect")
-def disconnect():
-
-    return broker_service.disconnect()
+    return request.app.state.engine.brokers.discover()

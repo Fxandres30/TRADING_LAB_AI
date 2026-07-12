@@ -97,3 +97,27 @@ class AccountManager:
 
     def clear(self):
         self.accounts.clear()
+
+        # =====================================================
+    # BALANCE TOTAL
+    # =====================================================
+
+    def total_balance(self):
+
+        return sum(account.balance for account in self.accounts.values())
+
+    # =====================================================
+    # EQUITY TOTAL
+    # =====================================================
+
+    def total_equity(self):
+
+        return sum(account.equity for account in self.accounts.values())
+
+    # =====================================================
+    # TOTAL CUENTAS
+    # =====================================================
+
+    def count(self):
+
+        return len(self.accounts)

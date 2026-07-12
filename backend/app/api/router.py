@@ -25,6 +25,7 @@ from app.api.routes.positions import router as positions_router
 from app.api.routes.history import router as history_router
 from app.api.routes.symbols import router as symbols_router
 from app.api.routes.ticks import router as ticks_router
+from app.api.routes.operations import router as operations_router
 
 # ==========================================================
 # DERIV OAUTH
@@ -92,6 +93,10 @@ api_router.include_router(system_router)
 # BROKER
 # ==========================================================
 
+# ==========================================================
+# BROKER
+# ==========================================================
+
 api_router.include_router(broker_router)
 api_router.include_router(account_router)
 api_router.include_router(market_router)
@@ -100,7 +105,7 @@ api_router.include_router(positions_router)
 api_router.include_router(history_router)
 api_router.include_router(symbols_router)
 api_router.include_router(ticks_router)
-
+api_router.include_router(operations_router)
 
 # ==========================================================
 # DERIV OAUTH

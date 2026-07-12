@@ -1,203 +1,114 @@
 .accountOverlay{
-
     position:fixed;
     inset:0;
-
-    background:rgba(15,23,42,.55);
-
-    backdrop-filter:blur(6px);
-
+    background:rgba(0,0,0,.65);
     display:flex;
     align-items:center;
     justify-content:center;
-
-    z-index:99999;
-
+    z-index:999;
 }
 
 .accountModal{
-
-    width:620px;
-
-    background:white;
-
-    border-radius:22px;
-
-    overflow:hidden;
-
-    box-shadow:
-    0 25px 70px rgba(0,0,0,.22);
-
-    animation:popup .25s ease;
-
-}
-
-@keyframes popup{
-
-    from{
-
-        opacity:0;
-        transform:translateY(20px) scale(.96);
-
-    }
-
-    to{
-
-        opacity:1;
-        transform:none;
-
-    }
-
+    width:760px;
+    max-width:95%;
+    max-height:90vh;
+    overflow:auto;
+    background:#111827;
+    border:1px solid #1f2937;
+    border-radius:18px;
+    padding:24px;
+    color:#fff;
 }
 
 .modalHeader{
-
     display:flex;
     justify-content:space-between;
     align-items:flex-start;
-
-    padding:28px;
-
-    border-bottom:1px solid #eef2f7;
-
+    margin-bottom:25px;
 }
 
 .modalHeader h2{
-
     margin:0;
-
-    font-size:28px;
-
-    color:#0f172a;
-
+    font-size:24px;
 }
 
 .modalHeader p{
-
-    margin-top:8px;
-
-    color:#64748b;
-
-    font-size:14px;
-
+    margin-top:6px;
+    color:#9ca3af;
 }
 
 .close{
-
-    width:42px;
-
-    height:42px;
-
     border:none;
-
-    border-radius:12px;
-
+    background:none;
+    color:white;
+    font-size:22px;
     cursor:pointer;
-
-    background:#f8fafc;
-
-    font-size:18px;
-
-    transition:.25s;
-
 }
 
-.close:hover{
-
-    background:#ef4444;
-
-    color:white;
-
+.sectionTitle{
+    margin:25px 0 15px;
+    font-size:18px;
+    color:#e5e7eb;
 }
 
 .brokerList{
-
-    padding:24px;
-
+    display:flex;
+    flex-direction:column;
+    gap:14px;
 }
 
 .brokerCard{
-
-    width:100%;
-
     display:flex;
-
     align-items:center;
-
-    gap:22px;
-
-    padding:22px;
-
-    border-radius:18px;
-
-    border:2px solid #e5e7eb;
-
-    background:white;
-
+    justify-content:space-between;
+    gap:20px;
+    width:100%;
+    padding:18px;
+    border-radius:14px;
+    border:1px solid #374151;
+    background:#1f2937;
+    color:white;
     cursor:pointer;
-
     transition:.25s;
-
 }
 
 .brokerCard:hover{
-
-    transform:translateY(-2px);
-
-    border-color:#2563eb;
-
-    box-shadow:0 10px 35px rgba(37,99,235,.15);
-
+    background:#2b3546;
+    border-color:#3b82f6;
 }
 
 .brokerCard img{
-
-    width:62px;
-
-    height:62px;
-
+    width:48px;
+    height:48px;
     object-fit:contain;
-
 }
 
 .brokerInfo{
-
     flex:1;
-
     display:flex;
-
     flex-direction:column;
-
+    align-items:flex-start;
+    gap:4px;
 }
 
 .brokerInfo strong{
-
-    font-size:22px;
-
-    color:#111827;
-
+    font-size:17px;
 }
 
 .brokerInfo span{
-
-    margin-top:6px;
-
-    color:#64748b;
-
+    color:#9ca3af;
     font-size:14px;
-
 }
 
 .brokerAction{
+    color:#3b82f6;
+    font-weight:600;
+}
 
-    padding:12px 20px;
-
+.empty{
+    padding:20px;
+    border:1px dashed #374151;
     border-radius:12px;
-
-    background:#2563eb;
-
-    color:white;
-
-    font-weight:700;
-
+    color:#9ca3af;
+    text-align:center;
 }

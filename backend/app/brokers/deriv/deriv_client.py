@@ -189,3 +189,34 @@ class DerivClient:
             "sell": contract_id,
             "price": 0
         })
+    
+    # =====================================================
+# LOGIN
+# =====================================================
+
+def login(self):
+
+    self.require_authorized()
+
+    return self.authorized.get("loginid")
+
+
+def fullname(self):
+
+    self.require_authorized()
+
+    return self.authorized.get("fullname", "")
+
+
+def currency(self):
+
+    self.require_authorized()
+
+    return self.authorized.get("currency", "")
+
+
+def balance_value(self):
+
+    self.require_authorized()
+
+    return self.authorized.get("balance", 0)

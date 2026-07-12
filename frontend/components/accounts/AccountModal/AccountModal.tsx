@@ -2,9 +2,15 @@
 
 import "./AccountModal.css";
 
-const API =
-    process.env.NEXT_PUBLIC_API_URL ??
-    "http://127.0.0.1:8000/api";
+import { useEffect, useState } from "react";
+
+import { getAccounts } from "./services";
+
+import { Account } from "./types";
+
+import AccountDetectedList from "./AccountDetectedList";
+
+import BrokerManualList from "./BrokerManualList";
 
 type Props = {
 
@@ -14,25 +20,6 @@ type Props = {
 
 };
 
-function connectBroker(broker: string) {
-
-    switch (broker) {
-
-        case "deriv":
-
-            window.location.href =
-                `${API}/oauth/deriv/login`;
-
-            break;
-
-        default:
-
-            alert("Broker no disponible");
-
-    }
-
-}
-
 export default function AccountModal({
 
     open,
@@ -40,6 +27,33 @@ export default function AccountModal({
     onClose,
 
 }: Props) {
+
+    const [accounts, setAccounts] = useState<Account[]>([]);
+
+    useEffect(() => {
+
+        if (!open) return;
+
+        getAccounts()
+            .then(setAccounts)
+            .catch(() => setAccounts([]));
+
+    }, [open]);
+
+    // =====================================
+    // CONECTAR CUENTA
+    // =====================================
+
+    const handleConnect = async (account: Account) => {
+
+        console.log("Conectar:", account);
+
+        // Aquí luego llamaremos al backend
+        // await connectAccount(account.id);
+
+        onClose();
+
+    };
 
     if (!open) return null;
 
@@ -53,23 +67,22 @@ export default function AccountModal({
 
                     <div>
 
-                        <h2>
-
-                            Conectar Broker
-
-                        </h2>
+                        <h2>Conectar Broker</h2>
 
                         <p>
 
-                            Agrega una cuenta de trading para comenzar.
+                            Selecciona una cuenta detectada o conecta un broker.
 
                         </p>
 
                     </div>
 
                     <button
+
                         className="close"
+
                         onClick={onClose}
+
                     >
 
                         ✕
@@ -78,43 +91,30 @@ export default function AccountModal({
 
                 </div>
 
+                <h3 className="sectionTitle">
+
+                    Cuentas detectadas
+
+                </h3>
+
                 <div className="brokerList">
 
-                    {/* DERIV */}
+                    <AccountDetectedList
+                        accounts={accounts}
+                        onConnect={handleConnect}
+                    />
 
-                    <button
-                        className="brokerCard"
-                        onClick={() => connectBroker("deriv")}
-                    >
+                </div>
 
-                        <img
-                            src="/brokers/deriv.svg"
-                            alt="Deriv"
-                        />
+                <h3 className="sectionTitle">
 
-                        <div className="brokerInfo">
+                    Conectar manualmente
 
-                            <strong>
+                </h3>
 
-                                Deriv
+                <div className="brokerList">
 
-                            </strong>
-
-                            <span>
-
-                                CFDs · Forex · Options · Multipliers
-
-                            </span>
-
-                        </div>
-
-                        <div className="brokerAction">
-
-                            Conectar →
-
-                        </div>
-
-                    </button>
+                    <BrokerManualList />
 
                 </div>
 

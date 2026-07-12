@@ -1,13 +1,10 @@
 from fastapi import APIRouter, Request, HTTPException
 import traceback
 
-from app.market.timeframe import TimeFrame
-
 router = APIRouter(
     prefix="/market",
     tags=["Market"],
 )
-
 
 # =====================================================
 # SYMBOLS
@@ -16,22 +13,23 @@ router = APIRouter(
 @router.get("/symbols")
 def symbols(request: Request):
 
-    print("\n" + "=" * 80)
-    print("📊 MARKET /symbols")
-    print("=" * 80)
+    try:
 
-    engine = request.app.state.engine
+        engine = request.app.state.engine
 
-    broker = engine.broker()
+        return engine.market.get_symbols()
 
-    print("Broker:", broker.name)
+    except Exception as e:
 
-    print("Estado Broker:")
-    print(broker.status())
+        traceback.print_exc()
 
-    broker.connect()
+        raise HTTPException(
 
-    return broker.market.symbols()
+            status_code=500,
+
+            detail=str(e),
+
+        )
 
 
 # =====================================================
@@ -40,26 +38,34 @@ def symbols(request: Request):
 
 @router.get("/tick/{symbol}")
 def tick(
+
     symbol: str,
+
     request: Request,
+
 ):
 
-    print("\n" + "=" * 80)
-    print("📊 MARKET /tick")
-    print("=" * 80)
+    try:
 
-    print("Symbol:", symbol)
+        engine = request.app.state.engine
 
-    engine = request.app.state.engine
+        return engine.market.get_tick(
 
-    broker = engine.broker()
+            symbol=symbol,
 
-    print("Estado Broker:")
-    print(broker.status())
+        )
 
-    broker.connect()
+    except Exception as e:
 
-    return broker.market.tick(symbol)
+        traceback.print_exc()
+
+        raise HTTPException(
+
+            status_code=500,
+
+            detail=str(e),
+
+        )
 
 
 # =====================================================
@@ -70,93 +76,36 @@ def tick(
 def history(
 
     symbol: str,
+
     request: Request,
-    timeframe: str = "M1",
+
+    timeframe: str = "M15",
+
     count: int = 500,
 
 ):
 
-    print("\n" + "=" * 80)
-    print("📈 MARKET HISTORY")
-    print("=" * 80)
-
-    print("SYMBOL      :", symbol)
-    print("TIMEFRAME   :", timeframe)
-    print("COUNT       :", count)
-
     try:
+
+        print("\n" + "=" * 80)
+        print("📈 MARKET HISTORY")
+        print("=" * 80)
+
+        print("SYMBOL    :", symbol)
+        print("TIMEFRAME :", timeframe)
+        print("COUNT     :", count)
 
         engine = request.app.state.engine
 
-        print("\nENGINE")
-        print("----------------------------------------")
-        print("Running:", engine.running)
-
-        broker = engine.broker()
-
-        print("\nBROKER")
-        print("----------------------------------------")
-        print("Nombre :", broker.name)
-
-        try:
-
-            status = broker.status()
-
-            print("Estado Broker:")
-
-            for k, v in status.items():
-
-                print(f"{k:15}: {v}")
-
-        except Exception as e:
-
-            print("No fue posible obtener broker.status()")
-            print(e)
-
-        print("\nIntentando conectar broker...")
-
-        broker.connect()
-
-        print("Broker conectado correctamente.")
-
-        tf = TimeFrame.from_string(timeframe)
-
-        print("\nTIMEFRAME")
-        print("----------------------------------------")
-        print(tf)
-        print("Segundos:", tf.value)
-
-        print("\nSolicitando análisis...")
-
         analysis = engine.market.analyze(
-
-            broker=broker,
 
             symbol=symbol,
 
-            timeframe=tf.value,
+            timeframe=timeframe,
 
             count=count,
 
         )
-
-        print("\nANALYSIS")
-        print("----------------------------------------")
-
-        print("Symbol       :", analysis.symbol)
-        print("Last Price   :", analysis.last_price)
-        print("Velas        :", len(analysis.candles))
-
-        if analysis.candles:
-
-            first = analysis.candles[0]
-            last = analysis.candles[-1]
-
-            print("\nPrimera vela")
-            print(vars(first))
-
-            print("\nÚltima vela")
-            print(vars(last))
 
         candles = [
 
@@ -178,29 +127,32 @@ def history(
 
         ]
 
-        print("\nRespuesta enviada:", len(candles), "velas")
+        print("Velas:", len(candles))
 
         return candles
 
     except Exception as e:
 
-        print("\n" + "=" * 80)
-        print("❌ ERROR MARKET HISTORY")
-        print("=" * 80)
-
-        print("Tipo :", type(e).__name__)
-        print("Error:", str(e))
+        print("\n❌ ERROR MARKET HISTORY")
 
         traceback.print_exc()
 
         raise HTTPException(
+
             status_code=500,
+
             detail={
+
                 "error": str(e),
+
                 "type": type(e).__name__,
+
                 "symbol": symbol,
+
                 "timeframe": timeframe,
+
             },
+
         )
 
 
@@ -212,39 +164,28 @@ def history(
 def analyze(
 
     symbol: str,
+
     request: Request,
-    timeframe: str = "M1",
+
+    timeframe: str = "M15",
+
     count: int = 500,
 
 ):
-
-    print("\n" + "=" * 80)
-    print("📊 MARKET ANALYZE")
-    print("=" * 80)
 
     try:
 
         engine = request.app.state.engine
 
-        broker = engine.broker()
-
-        broker.connect()
-
-        tf = TimeFrame.from_string(timeframe)
-
         analysis = engine.market.analyze(
-
-            broker=broker,
 
             symbol=symbol,
 
-            timeframe=tf.value,
+            timeframe=timeframe,
 
             count=count,
 
         )
-
-        print("Velas:", len(analysis.candles))
 
         return {
 
@@ -253,8 +194,6 @@ def analyze(
             "symbol": analysis.symbol,
 
             "timeframe": timeframe,
-
-            "seconds": tf.value,
 
             "candles": len(analysis.candles),
 
@@ -283,6 +222,9 @@ def analyze(
         traceback.print_exc()
 
         raise HTTPException(
+
             status_code=500,
+
             detail=str(e),
+
         )

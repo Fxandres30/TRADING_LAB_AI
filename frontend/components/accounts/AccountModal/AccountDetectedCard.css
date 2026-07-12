@@ -1,0 +1,171 @@
+.brokerCard{
+
+    width:100%;
+
+    background:#222c3d;
+
+    border:1px solid #394760;
+
+    border-radius:12px;
+
+    padding:14px 18px;
+
+    transition:.2s;
+
+    cursor:pointer;
+
+}
+
+.brokerCard:hover{
+
+    border-color:#3b82f6;
+
+}
+
+.brokerHeader{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:12px;
+
+}
+
+.brokerHeader h3{
+
+    margin:0;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:#fff;
+
+}
+
+.brokerBadge{
+
+    margin-top:6px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:2px 10px;
+
+    border-radius:20px;
+
+    background:#315aa6;
+
+    color:#fff;
+
+    font-size:11px;
+
+    font-weight:600;
+
+}
+
+.status{
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+.connected{
+
+    color:#22c55e;
+
+}
+
+.disconnected{
+
+    color:#ef4444;
+
+}
+
+.brokerBody{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:10px 18px;
+
+    margin-top:8px;
+
+}
+
+.info{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.info label{
+
+    color:#8b98ac;
+
+    font-size:11px;
+
+    text-transform:uppercase;
+
+    margin-bottom:2px;
+
+}
+
+.info span{
+
+    color:#fff;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    line-height:1.2;
+
+}
+
+.brokerFooter{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    margin-top:12px;
+
+}
+
+.connectButton{
+
+    padding:8px 18px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#2563eb;
+
+    color:#fff;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+.connectButton:hover{
+
+    background:#1d4ed8;
+
+}

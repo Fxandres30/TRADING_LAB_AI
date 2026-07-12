@@ -1,6 +1,8 @@
 from app.core.service import Service
 
+from app.brokers.mt5.mt5_broker import MT5Broker
 from app.brokers.deriv.deriv_broker import DerivBroker
+from app.brokers.broker_discovery import BrokerDiscovery
 
 
 class BrokerManager(Service):
@@ -18,8 +20,9 @@ class BrokerManager(Service):
         super().__init__()
 
         self.event_bus = event_bus
-
         self.accounts = accounts
+
+        self.discovery = BrokerDiscovery()
 
         self.brokers = {}
 
@@ -27,33 +30,62 @@ class BrokerManager(Service):
 
         self.load()
 
+        # Descubre cuentas y conecta brokers automáticamente
+        self.initialize()
+
     # =====================================================
     # LOAD
     # =====================================================
 
     def load(self):
 
-        self.register(
+        self.register(MT5Broker(self.accounts))
 
-            DerivBroker(
+        self.register(DerivBroker(self.accounts))
 
-                self.accounts,
+    # =====================================================
+    # INITIALIZE
+    # =====================================================
 
-        )
+    def initialize(self):
 
-    )
+        print("\n🔍 Buscando cuentas de brokers...\n")
 
+        accounts = self.discovery.discover()
+
+        if not accounts:
+            print("⚠ No se encontraron cuentas.")
+            return
+
+        print(f"✅ {len(accounts)} cuenta(s) encontrada(s)\n")
+
+        for account in accounts:
+
+            self.accounts.add(account)
+
+        print("--------------------------------")
+        print("Broker   :", account.broker)
+        print("Empresa  :", account.company)
+        print("Login    :", account.login)
+        print("Servidor :", account.server)
+        print("Balance  :", account.balance)
+        print("Equity   :", account.equity)
+        print("Moneda   :", account.currency)
+        print("Nombre   :", account.name)
+        print("--------------------------------")
     # =====================================================
     # REGISTER
     # =====================================================
 
     def register(self, broker):
 
-        self.brokers[broker.name] = broker
+        key = broker.name.lower()
+
+        self.brokers[key] = broker
 
         if self.default is None:
 
-            self.default = broker.name
+            self.default = key
 
         print(f"✅ Broker registrado -> {broker.name}")
 
@@ -67,11 +99,25 @@ class BrokerManager(Service):
 
             broker = self.default
 
+        if hasattr(broker, "name"):
+
+            return broker
+
+        broker = str(broker).lower()
+
         if broker not in self.brokers:
 
             raise Exception(f"Broker '{broker}' no encontrado.")
 
         return self.brokers[broker]
+
+    # =====================================================
+    # DISCOVER
+    # =====================================================
+
+    def discover(self):
+
+        return self.discovery.discover()
 
     # =====================================================
     # STATUS
@@ -88,23 +134,141 @@ class BrokerManager(Service):
         }
 
     # =====================================================
-    # LIST
+    # CANDLES
     # =====================================================
 
-    def list(self):
+    def get_candles(
 
-        return [
+        self,
 
-            {
+        broker=None,
 
-                "name": broker.name,
+        symbol="EURUSD",
 
-                "connected": broker.status()["connected"],
+        timeframe="M15",
 
-                "ready": broker.status()["ready"]
+        count=500,
 
-            }
+    ):
 
-            for broker in self.brokers.values()
+        broker = self.get(broker)
 
-        ]
+        return broker.get_candles(
+
+            symbol=symbol,
+
+            timeframe=timeframe,
+
+            count=count,
+
+        )
+
+    # =====================================================
+    # TICK
+    # =====================================================
+
+    def get_tick(
+
+        self,
+
+        broker=None,
+
+        symbol="EURUSD",
+
+    ):
+
+        broker = self.get(broker)
+
+        return broker.get_tick(symbol)
+
+    # =====================================================
+    # SYMBOLS
+    # =====================================================
+
+    def get_symbols(
+
+        self,
+
+        broker=None,
+
+    ):
+
+        return self.get(broker).get_symbols()
+
+    # =====================================================
+    # BALANCE
+    # =====================================================
+
+    def get_balance(
+
+        self,
+
+        broker=None,
+
+    ):
+
+        return self.get(broker).get_balance()
+
+    # =====================================================
+    # ORDERS
+    # =====================================================
+
+    def get_orders(
+
+        self,
+
+        broker=None,
+
+    ):
+
+        return self.get(broker).get_orders()
+
+    # =====================================================
+    # POSITIONS
+    # =====================================================
+
+    def get_positions(
+
+        self,
+
+        broker=None,
+
+    ):
+
+        return self.get(broker).get_positions()
+
+    # =====================================================
+    # SEND ORDER
+    # =====================================================
+
+    def send_order(
+
+        self,
+
+        broker=None,
+
+        **kwargs,
+
+    ):
+
+        return self.get(broker).send_order(**kwargs)
+
+    # =====================================================
+    # CONNECT
+    # =====================================================
+
+    def connect(self):
+
+        for broker in self.brokers.values():
+
+            broker.connect()
+
+    # =====================================================
+    # DISCONNECT
+    # =====================================================
+
+    def disconnect(self):
+
+        for broker in self.brokers.values():
+
+            broker.disconnect()

@@ -3,10 +3,24 @@ from pydantic import BaseModel
 
 class Account(BaseModel):
 
+    id: str
+
+    broker: str
+
+    company: str
+
     login: str
 
-    balance: float
+    server: str
+
+    name: str
 
     currency: str
 
-    broker: str
+    balance: float
+
+    equity: float
+
+    connected: bool
+
+    selected: bool

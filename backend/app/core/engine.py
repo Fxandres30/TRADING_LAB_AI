@@ -6,7 +6,9 @@ from app.core.strategy_manager import StrategyManager
 from app.core.risk_manager import RiskManager
 from app.core.execution_manager import ExecutionManager
 from app.core.database_manager import DatabaseManager
+
 from app.accounts.account_manager import AccountManager
+
 
 class TradingEngine:
 
@@ -27,29 +29,20 @@ class TradingEngine:
         # ==========================================
 
         self.brokers = BrokerManager(
-
             self.events,
-
             self.accounts,
-
         )
 
         self.market = MarketManager(
-
             self.events,
-
             self.brokers,
-
         )
 
         self.strategies = StrategyManager(self.events)
-
         self.risk = RiskManager(self.events)
-
         self.execution = ExecutionManager(self.events)
-
         self.database = DatabaseManager(self.events)
-        
+
     # =====================================================
     # START
     # =====================================================
@@ -74,6 +67,40 @@ class TradingEngine:
         self.database.start()
 
         print()
+        print("🔍 ESCANEANDO BROKERS...")
+        print()
+
+        accounts = self.brokers.discover()
+
+        if not accounts:
+
+            print("⚠ No se encontraron cuentas MT5.")
+
+        else:
+
+            print(f"✅ {len(accounts)} cuenta(s) encontrada(s)\n")
+
+            for account in accounts:
+
+                self.accounts.add(account)
+
+                print("--------------------------------")
+                print("Broker   :", account.broker)
+                print("Empresa  :", account.company)
+                print("Login    :", account.login)
+                print("Servidor :", account.server)
+                print("Balance  :", account.balance)
+                print("Equity   :", account.equity)
+                print("Moneda   :", account.currency)
+                print("Nombre   :", account.name)
+                print("--------------------------------")
+
+        print()
+        print("💰 Balance Total :", self.accounts.total_balance())
+        print("📈 Equity Total  :", self.accounts.total_equity())
+        print("👤 Cuentas       :", self.accounts.count())
+        print()
+
         print("🟢 ENGINE INICIADO")
 
     # =====================================================
@@ -97,7 +124,6 @@ class TradingEngine:
         self.database.stop()
 
         self.brokers.disconnect()
-
         self.brokers.stop()
 
         self.running = False
@@ -124,7 +150,7 @@ class TradingEngine:
 
             "execution": self.execution.running,
 
-            "database": self.database.running
+            "database": self.database.running,
 
         }
 

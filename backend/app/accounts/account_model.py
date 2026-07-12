@@ -8,7 +8,11 @@ class AccountModel:
 
     broker: str
 
+    company: str
+
     login: str
+
+    server: str
 
     name: str
 
@@ -19,6 +23,8 @@ class AccountModel:
     balance: float = 0.0
 
     equity: float = 0.0
+
+    path: str = ""
 
     connected: bool = False
 
